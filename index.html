@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        .container {
+            background-color: rgb(85, 85, 234);
+        }
+
+        .box {
+            background-color: rgb(229, 241, 252);
+            width: 50%;
+            margin: 10% auto;
+            border-radius: 25px;
+            padding: 5rem;
+        }
+
+        .title {
+            font-size: large;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-style: italic;
+            color: rgb(144, 144, 49);
+            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        button {
+            padding: 20px;
+            background-color: rgb(255, 165, 0);
+
+            border-radius: 15px;
+            font-weight: bolder;
+        }
+
+        button:hover {
+            background-color: rgb(165, 205, 205);
+        }
+
+        #jokes {
+            font-style: italic;
+            color: rgb(223, 68, 68);
+        }
+    </style>
+</head>
+
+<body class="container">
+    <div class="box">
+        <div class="title">Get Ready For a Good Laugh</div>
+        <br>
+        <hr>
+        <br>
+        <div id="jokes"></div>
+        <br>
+        <hr>
+        <br>
+        <div class="buttons">
+            <button id="next" onclick="createJoke()">Next</button>
+            <button id="tweet" onclick="tweetJoke()">Tweet</button>
+        </div>
+    </div>
+    <script>
+        let jokes = document.getElementById("jokes");
+        let next = document.getElementById("next");
+        let realData = "";
+
+        const createJoke = async () => {
+            // https://v2.jokeapi.dev/joke/Programming?type=single
+            const url = "https://v2.jokeapi.dev/joke/Programming?type=single";
+            let data = await fetch(url);
+            realData = await data.json();
+            jokes.innerHTML = `${realData.joke}`;
+        }
+
+        const tweetJoke = () => {
+            let tweetPost = `https://twitter.com/intent/tweet?text=${realData.joke}`;
+            window.open(tweetPost);
+        }
+
+        createJoke();
+    </script>
+</body>
+
+</html>
